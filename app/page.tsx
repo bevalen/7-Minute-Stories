@@ -6,9 +6,11 @@ function Home() {
   return (
     <div className="flex flex-col justify-center items-center min-h-screen">
       <span className="pointer-events-none whitespace-pre-wrap bg-gradient-to-b from-black to-gray-300/80 bg-clip-text text-center text-8xl font-semibold leading-none text-transparent dark:from-white dark:to-slate-900/10">
-        Share Your
+        Write Your
         <br />
         7-Minute Story
+        <br />
+        with AI
       </span>
       <p className="mt-4 text-center text-lg font-medium text-gray-700 dark:text-gray-300">
         &quot;...always be prepared to give an answer to everyone who asks you
