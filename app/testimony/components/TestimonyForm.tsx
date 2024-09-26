@@ -11,6 +11,7 @@ import { PDFDocument, rgb, PDFFont, StandardFonts } from 'pdf-lib';
 import { marked } from 'marked'; // Add this import
 import { CheckCircle, Download, Copy as CopyIcon, Pencil } from 'lucide-react'; // Add this import
 import { Dialog, DialogClose, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
+import { Input } from "@/components/ui/input" // Add this import
 
 interface Line {
     text: string;
@@ -334,12 +335,11 @@ export default function TestimonyForm() {
                 </CardHeader>
                 <CardContent>
                     {step === 0 ? (
-                        <input
+                        <Input
                             type="text"
                             value={answers[0]}
                             onChange={handleAnswerChange}
                             placeholder="Enter your name"
-                            className="w-full p-2 border rounded"
                         />
                     ) : (
                         <Textarea
