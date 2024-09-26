@@ -221,16 +221,16 @@ export default function TestimonyForm() {
 
     if (step === -1) {
         return (
-            <Card className="w-full">
+            <Card className="w-full max-w-[600px] mx-auto">
                 <CardHeader>
-                    <CardTitle>Write Your 7-Minute Testimony</CardTitle>
-                    <CardDescription>Answer a series of questions to help craft your 7-minute story</CardDescription>
+                    <CardTitle className="text-xl sm:text-2xl">Write Your 7-Minute Testimony</CardTitle>
+                    <CardDescription className="text-sm sm:text-base">Answer a series of questions to help craft your 7-minute story</CardDescription>
                 </CardHeader>
                 <CardContent>
-                    <p>This form will guide you through writing your 7-minute story. You&apos;ll answer one question at a time, and at the end, we&apos;ll use AI to help craft your story.</p>
+                    <p className="text-sm sm:text-base">This form will guide you through writing your 7-minute story. You&apos;ll answer one question at a time, and at the end, we&apos;ll use AI to help craft your story.</p>
                 </CardContent>
-                <CardFooter>
-                    <Button onClick={() => setStep(0)}>Get Started</Button>
+                <CardFooter className="flex flex-col sm:flex-row justify-between items-center space-y-4 sm:space-y-0">
+                    <Button className="w-full sm:w-auto" onClick={() => setStep(0)}>Get Started</Button>
                 </CardFooter>
             </Card>
         )
@@ -238,23 +238,23 @@ export default function TestimonyForm() {
 
     if (step === questions.length) {
         return (
-            <Card className="w-full">
+            <Card className="w-full max-w-[600px] mx-auto">
                 <CardHeader>
-                    <CardTitle>Choose Writing Style</CardTitle>
-                    <CardDescription>Select a writing style for your 7-minute story</CardDescription>
+                    <CardTitle className="text-xl sm:text-2xl">Choose Writing Style</CardTitle>
+                    <CardDescription className="text-sm sm:text-base">Select a writing style for your 7-minute story</CardDescription>
                 </CardHeader>
                 <CardContent>
                     <RadioGroup onValueChange={handleWritingStyleChange} value={writingStyle}>
                         {writingStyles.map((style) => (
                             <div key={style.id} className="flex items-center space-x-2">
                                 <RadioGroupItem value={style.id} id={style.id} />
-                                <Label htmlFor={style.id}>{style.label}</Label>
+                                <Label htmlFor={style.id} className="text-sm sm:text-base">{style.label}</Label>
                             </div>
                         ))}
                     </RadioGroup>
                 </CardContent>
-                <CardFooter>
-                    <Button onClick={handleSubmit} disabled={!writingStyle || isLoading}>
+                <CardFooter className="flex flex-col sm:flex-row justify-between items-center space-y-4 sm:space-y-0">
+                    <Button className="w-full sm:w-auto" onClick={handleSubmit} disabled={!writingStyle || isLoading}>
                         {isLoading ? "Generating..." : "Generate Testimony"}
                     </Button>
                 </CardFooter>
@@ -264,22 +264,22 @@ export default function TestimonyForm() {
 
     if (step === questions.length + 1) {
         return (
-            <Card className="w-full">
+            <Card className="w-full max-w-[600px] mx-auto">
                 <CardHeader>
-                    <CardTitle>Your Generated 7-Minute Story</CardTitle>
-                    <CardDescription>Here&apos;s your AI-generated 7-minute story based on your answers</CardDescription>
+                    <CardTitle className="text-xl sm:text-2xl">Your Generated 7-Minute Story</CardTitle>
+                    <CardDescription className="text-sm sm:text-base">Here&apos;s your AI-generated 7-minute story based on your answers</CardDescription>
                 </CardHeader>
                 <CardContent>
-                    <div className="h-auto whitespace-pre-line">
+                    <div className="h-auto whitespace-pre-line text-sm sm:text-base">
                         <ReactMarkdown>{generatedTestimony}</ReactMarkdown>
                     </div>
                 </CardContent>
-                <CardFooter className="flex justify-center space-x-4">
-                    <Button onClick={copyToClipboard}>
-                        {isCopied ? <><CheckCircle style={{ marginRight: '4px', width: '16px', height: '16px' }} /> Copied</> : <><CopyIcon style={{ marginRight: '4px', width: '16px', height: '16px' }} /> Copy to Clipboard</>}
+                <CardFooter className="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-4">
+                    <Button className="w-full sm:w-auto" onClick={copyToClipboard}>
+                        {isCopied ? <><CheckCircle className="mr-1 w-4 h-4" /> Copied</> : <><CopyIcon className="mr-1 w-4 h-4" /> Copy to Clipboard</>}
                     </Button>
-                    <Button onClick={handleDownloadPDF}>
-                        {isDownloaded ? <><CheckCircle style={{ marginRight: '4px', width: '16px', height: '16px' }} /> Downloaded</> : <><Download style={{ marginRight: '4px', width: '16px', height: '16px' }} /> Download PDF</>}
+                    <Button className="w-full sm:w-auto" onClick={handleDownloadPDF}>
+                        {isDownloaded ? <><CheckCircle className="mr-1 w-4 h-4" /> Downloaded</> : <><Download className="mr-1 w-4 h-4" /> Download PDF</>}
                     </Button>
                 </CardFooter>
             </Card>
@@ -288,52 +288,53 @@ export default function TestimonyForm() {
 
     if (step !== -1 && step < questions.length) {
         return (
-            <Card className="w-full">
+            <Card className="w-full max-w-[600px] mx-auto">
                 <CardHeader className="text-center">
-                    <CardTitle className="text-lg font-semibold">{questions[step]}</CardTitle>
+                    <CardTitle className="text-lg sm:text-xl font-semibold">{questions[step]}</CardTitle>
                 </CardHeader>
                 <CardContent>
                     <Textarea
                         value={answers[step]}
                         onChange={handleAnswerChange}
                         placeholder="Type your answer here..."
-                        className="h-[300px]"
+                        className="h-[200px] sm:h-[300px]"
                     />
                 </CardContent>
-                <CardFooter className="flex justify-between items-center">
-                    <Button onClick={handlePrevious} disabled={step === 0}>Previous</Button>
-                    <span className="text-center">Question {step + 1}</span>
-                    {step < questions.length - 1 ? (
-                        <Button onClick={handleNext} disabled={!answers[step]}>Next</Button>
-                    ) : (
-                        <Button onClick={handleNext} disabled={!answers[step]}>Next</Button>
-                    )}
+                <CardFooter className="flex flex-col items-center space-y-4 sm:space-y-0">
+                    <span className="text-center text-sm sm:text-base sm:hidden mb-2">Question {step + 1}</span>
+                    <div className="flex flex-col sm:flex-row justify-between items-center w-full space-y-4 sm:space-y-0">
+                        <Button className="w-full sm:w-auto" onClick={handlePrevious} disabled={step === 0}>Previous</Button>
+                        <span className="hidden sm:inline text-center text-sm sm:text-base">Question {step + 1}</span>
+                        <Button 
+                            className="w-full sm:w-auto"
+                            onClick={handleNext} 
+                            disabled={!answers[step]}
+                        >
+                            {step < questions.length - 1 ? "Next" : "Finish"}
+                        </Button>
+                    </div>
                 </CardFooter>
             </Card>
         )
     }
 
     return (
-        <Card className="w-full">
+        <Card className="w-full max-w-[600px] mx-auto">
             <CardHeader>
-                <CardTitle>Question {step + 1}</CardTitle>
-                <CardDescription>{questions[step]}</CardDescription>
+                <CardTitle className="text-xl sm:text-2xl">Question {step + 1}</CardTitle>
+                <CardDescription className="text-sm sm:text-base">{questions[step]}</CardDescription>
             </CardHeader>
             <CardContent>
                 <Textarea
                     value={answers[step]}
                     onChange={handleAnswerChange}
                     placeholder="Type your answer here..."
-                    className="h-[300px]"
+                    className="h-[200px] sm:h-[300px]"
                 />
             </CardContent>
-            <CardFooter className="flex justify-between">
-                <Button onClick={handlePrevious} disabled={step === 0}>Previous</Button>
-                {step < questions.length - 1 ? (
-                    <Button onClick={handleNext} disabled={!answers[step]}>Next</Button>
-                ) : (
-                    <Button onClick={handleNext} disabled={!answers[step]}>Next</Button>
-                )}
+            <CardFooter className="flex flex-col sm:flex-row justify-between items-center space-y-4 sm:space-y-0">
+                <Button className="w-full sm:w-auto" onClick={handlePrevious} disabled={step === 0}>Previous</Button>
+                <Button className="w-full sm:w-auto" onClick={handleNext} disabled={!answers[step]}>Next</Button>
             </CardFooter>
         </Card>
     )
