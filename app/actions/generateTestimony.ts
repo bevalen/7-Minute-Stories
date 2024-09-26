@@ -16,7 +16,7 @@ Please create a coherent, engaging, and personal testimony that incorporates the
     const completion = await openai.chat.completions.create({
         model: "gpt-4o-mini",
         messages: [
-            { role: "system", content: "You are a helpful assistant that generates Christian testimonies based on user input. The testimony should not exceed 1000 words." },
+            { role: "system", content: "You are a helpful assistant that generates Christian testimonies based on user input." },
             { role: "user", content: prompt }
         ],
         max_tokens: 1000,
