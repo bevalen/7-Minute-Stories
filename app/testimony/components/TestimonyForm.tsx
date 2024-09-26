@@ -18,6 +18,7 @@ interface Line {
 }
 
 const questions = [
+    "What is your name?", // Add this new question
     "What was it like growing up in your family or home?",
     "What has been your greatest failure, and what have you learned from it?",
     "What is a challenge you've faced that felt impossible at the time, and how did you overcome it?",
@@ -56,7 +57,7 @@ export default function TestimonyForm() {
         }
     }
 
-    const handleAnswerChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const handleAnswerChange = (e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
         const newAnswers = [...answers]
         newAnswers[step] = e.target.value
         setAnswers(newAnswers)
@@ -332,12 +333,22 @@ export default function TestimonyForm() {
                     <CardTitle className="text-lg sm:text-xl font-semibold">{questions[step]}</CardTitle>
                 </CardHeader>
                 <CardContent>
-                    <Textarea
-                        value={answers[step]}
-                        onChange={handleAnswerChange}
-                        placeholder="Type your answer here..."
-                        className="h-[200px] sm:h-[300px]"
-                    />
+                    {step === 0 ? (
+                        <input
+                            type="text"
+                            value={answers[0]}
+                            onChange={handleAnswerChange}
+                            placeholder="Enter your name"
+                            className="w-full p-2 border rounded"
+                        />
+                    ) : (
+                        <Textarea
+                            value={answers[step]}
+                            onChange={handleAnswerChange}
+                            placeholder="Type your answer here..."
+                            className="h-[200px] sm:h-[300px]"
+                        />
+                    )}
                 </CardContent>
                 <CardFooter className="flex flex-col items-center space-y-4 sm:space-y-0">
                     <span className="text-center text-sm sm:text-base sm:hidden mb-2">Question {step + 1}</span>
