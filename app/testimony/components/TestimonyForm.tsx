@@ -234,11 +234,12 @@ export default function TestimonyForm() {
         return (
             <Card className="w-full max-w-[600px] mx-auto">
                 <CardHeader>
-                    <CardTitle className="text-xl sm:text-2xl">Write Your 7-Minute Testimony</CardTitle>
-                    <CardDescription className="text-sm sm:text-base">Answer a series of questions to help craft your 7-minute story</CardDescription>
+                    <CardTitle className="text-xl sm:text-2xl">Write Your 7-Minute Story</CardTitle>
+                    <CardDescription className="text-sm sm:text-base">Answer a series of questions to help craft your testimony</CardDescription>
                 </CardHeader>
                 <CardContent>
                     <p className="text-sm sm:text-base">This form will guide you through writing your 7-minute story. You&apos;ll answer one question at a time, and at the end, we&apos;ll use AI to help craft your story.</p>
+                    <p className="text-xsm sm:text-xs mt-6 italic">&quot;They triumphed over him by the blood of the Lamb and by <span className="font-bold">the word of their testimony</span>.&quot; <br />- Revelation 12:11</p>
                 </CardContent>
                 <CardFooter className="flex flex-col sm:flex-row justify-between items-center space-y-4 sm:space-y-0">
                     <Button className="w-full sm:w-auto" onClick={() => setStep(0)}>Get Started</Button>
@@ -278,7 +279,7 @@ export default function TestimonyForm() {
             <Card className="w-full max-w-[600px] mx-auto">
                 <CardHeader>
                     <div className="flex justify-between items-center">
-                        <CardTitle className="text-xl sm:text-2xl">Your Generated 7-Minute Story</CardTitle>
+                        <CardTitle className="text-xl sm:text-2xl">Your 7-Minute Story</CardTitle>
                         <Dialog>
                             <DialogTrigger asChild>
                                 <Button size="sm" onClick={() => setEditedTestimony(generatedTestimony)}>
@@ -305,7 +306,7 @@ export default function TestimonyForm() {
                             </DialogContent>
                         </Dialog>
                     </div>
-                    <CardDescription className="text-sm sm:text-base">Here&apos;s your AI-generated 7-minute story based on your answers</CardDescription>
+                    <CardDescription className="text-sm sm:text-base">Here&apos;s your AI-generated testimony! <br /> You can edit from here and download when you&apos;re ready!</CardDescription>
                 </CardHeader>
                 <CardContent>
                     <div className="h-auto whitespace-pre-line text-sm sm:text-base">
