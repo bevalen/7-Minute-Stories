@@ -9,7 +9,8 @@ import { Label } from "@/components/ui/label"
 import ReactMarkdown from 'react-markdown'
 import { PDFDocument, rgb, PDFFont, StandardFonts } from 'pdf-lib';
 import { marked } from 'marked'; // Add this import
-import { CheckCircle, Download, Copy as CopyIcon } from 'lucide-react'; // Add this import
+import { CheckCircle, Download, Copy as CopyIcon, Pencil } from 'lucide-react'; // Add this import
+import { Dialog, DialogClose, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 
 interface Line {
     text: string;
@@ -41,6 +42,7 @@ export default function TestimonyForm() {
     const [isLoading, setIsLoading] = useState(false)
     const [isCopied, setIsCopied] = useState(false)
     const [isDownloaded, setIsDownloaded] = useState(false) // Add this state
+    const [editedTestimony, setEditedTestimony] = useState('')
 
     const handleNext = () => {
         if (step < questions.length) {
@@ -219,6 +221,15 @@ export default function TestimonyForm() {
         return lines;
     };
 
+    const handleEditTestimony = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+        setEditedTestimony(e.target.value)
+    }
+
+    const saveEditedTestimony = () => {
+        setGeneratedTestimony(editedTestimony)
+        // The dialog will be closed automatically when this button is clicked
+    }
+
     if (step === -1) {
         return (
             <Card className="w-full max-w-[600px] mx-auto">
@@ -266,7 +277,34 @@ export default function TestimonyForm() {
         return (
             <Card className="w-full max-w-[600px] mx-auto">
                 <CardHeader>
-                    <CardTitle className="text-xl sm:text-2xl">Your Generated 7-Minute Story</CardTitle>
+                    <div className="flex justify-between items-center">
+                        <CardTitle className="text-xl sm:text-2xl">Your Generated 7-Minute Story</CardTitle>
+                        <Dialog>
+                            <DialogTrigger asChild>
+                                <Button size="sm" onClick={() => setEditedTestimony(generatedTestimony)}>
+                                    <Pencil className="w-4 h-4 mr-2" /> Edit
+                                </Button>
+                            </DialogTrigger>
+                            <DialogContent className="sm:max-w-[625px]">
+                                <DialogHeader>
+                                    <DialogTitle>Edit Your 7-Minute Story</DialogTitle>
+                                </DialogHeader>
+                                <Textarea
+                                    value={editedTestimony}
+                                    onChange={handleEditTestimony}
+                                    className="h-[400px] mb-4"
+                                />
+                                <div className="flex flex-col sm:flex-row sm:space-x-4 w-full space-y-4 sm:space-y-0">
+                                    <DialogClose asChild>
+                                        <Button className="w-full sm:w-[calc(50%-0.5rem)]" variant="outline">Cancel</Button>
+                                    </DialogClose>
+                                    <DialogClose asChild>
+                                        <Button className="w-full sm:w-[calc(50%-0.5rem)]" onClick={saveEditedTestimony}>Save Changes</Button>
+                                    </DialogClose>
+                                </div>
+                            </DialogContent>
+                        </Dialog>
+                    </div>
                     <CardDescription className="text-sm sm:text-base">Here&apos;s your AI-generated 7-minute story based on your answers</CardDescription>
                 </CardHeader>
                 <CardContent>
